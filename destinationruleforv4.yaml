@@ -1,0 +1,43 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  creationTimestamp: "2023-09-23T22:06:08Z"
+  generation: 6
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:host: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2023-09-23T22:06:08Z"
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:subsets: {}
+    manager: kubectl-edit
+    operation: Update
+    time: "2023-09-23T22:51:44Z"
+  name: vertx-greet
+  namespace: release-canary
+  resourceVersion: "200632"
+  selfLink: /apis/networking.istio.io/v1beta1/namespaces/release-canary/destinationrules/vertx-greet
+  uid: 2559f886-914b-47d0-b91f-ad40e4f39051
+spec:
+  host: vertx-greet
+  subsets:
+  - labels:
+      version: v1
+    name: v1
+  - labels:
+      version: v2
+    name: v2
+  - labels:
+      version: v3
+    name: v3
+  - labels:
+      version: v4
+    name: v4

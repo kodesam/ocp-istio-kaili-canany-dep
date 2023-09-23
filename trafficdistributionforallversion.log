@@ -1,0 +1,256 @@
+student@workstation release-canary]$ oc edit virtualservices.networking.istio.io vertx-greet 
+^[[Bvirtualservice.networking.istio.io/vertx-greet edited
+[student@workstation release-canary]$ oc get  virtualservices.networking.istio.io vertx-greet -o yaml > distributionoftraffictoall.yaml
+[student@workstation release-canary]$ ./test_canary.py $GATEWAY_URL --request 100
+Canary Release Test
+Sending 100 requests to istio-ingressgateway-istio-system.apps.ocp4.example.com ...
+
+
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+Hello World!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+
+
+#### Stats ####
+
+Total requests: 100
+* 'Hello World!' responses: 10 (10.0%)
+* Errors: 90 (90.0%)
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ ll
+total 72
+-rw-rw-r--. 1 student student   488 Jan 11  2023 deployment-v1.yaml
+-rw-rw-r--. 1 student student   582 Sep 23 18:05 deployment-v2.yaml
+-rw-rw-r--. 1 student student   657 Sep 23 18:18 deployment-v3.yaml
+-rw-rw-r--. 1 student student   667 Sep 23 18:49 deployment-v4.yaml
+-rw-rw-r--. 1 student student   992 Sep 23 18:53 destinationruleforv4.yaml
+-rw-rw-r--. 1 student student   215 Jan 11  2023 destination-rule.yaml
+-rw-rw-r--. 1 student student  1352 Sep 23 19:00 distributionoftraffictoall.yaml
+-rw-rw-r--. 1 student student   247 Jan 11  2023 gateway.yaml
+-rw-rw-r--. 1 student student   148 Sep 23 18:46 README.md
+-rw-rw-r--. 1 student student   172 Jan 11  2023 service.yaml
+-rwxrwxr-x. 1 student student  2007 Jan 11  2023 test_canary.py
+-rw-rw-r--. 1 student student  1312 Sep 23 18:43 test_output.log
+-rw-rw-r--. 1 student student 14832 Sep 23 18:58 v4deployment.log
+-rw-rw-r--. 1 student student  1351 Sep 23 18:55 virtualserviceupdateforv4.yaml
+-rw-rw-r--. 1 student student   251 Jan 11  2023 virtual-service.yaml
+[student@workstation release-canary]$ vi test_canary.py 
+[student@workstation release-canary]$ vi test_canary.py 
+[student@workstation release-canary]$ ./test_canary.py $GATEWAY_URL --request 100
+  File "./test_canary.py", line 51
+    "!!! HELLO REDHAT OPENSHIFT container platform!!!": 0
+                                                     ^
+SyntaxError: invalid syntax
+[student@workstation release-canary]$ vi test_canary.py 
+[student@workstation release-canary]$ ./test_canary.py $GATEWAY_URL --request 100
+Canary Release Test
+Sending 100 requests to istio-ingressgateway-istio-system.apps.ocp4.example.com ...
+
+
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+Hello World!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+
+
+#### Stats ####
+
+Total requests: 100
+* 'Hello World!' responses: 14 (14.000000000000002%)
+* '!!! HELLO REDHAT OPENSHIFT !!!' responses: 36 (36.0%)
+* '!!! HELLO REDHAT OPENSHIFT container !!!' responses: 25 (25.0%)
+* Errors: 25 (25.0%)
+

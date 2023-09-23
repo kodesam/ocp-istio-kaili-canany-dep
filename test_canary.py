@@ -46,8 +46,9 @@ if __name__ == "__main__":
     errors = 0
     counters = {
         "Hello World!": 0,
-        "Hello Red Hat!": 0,
-        "Hello v3!": 0
+        "!!! HELLO REDHAT OPENSHIFT !!!": 0,
+        "!!! HELLO REDHAT OPENSHIFT container !!!": 0,
+        "!!! HELLO REDHAT OPENSHIFT container platform!!!": 0
     }
 
     args = parse_args()

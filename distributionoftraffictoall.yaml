@@ -1,0 +1,60 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  creationTimestamp: "2023-09-23T21:47:31Z"
+  generation: 8
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:gateways: {}
+        f:hosts: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2023-09-23T21:47:31Z"
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:http: {}
+    manager: kubectl-edit
+    operation: Update
+    time: "2023-09-23T23:00:11Z"
+  name: vertx-greet
+  namespace: release-canary
+  resourceVersion: "203293"
+  selfLink: /apis/networking.istio.io/v1beta1/namespaces/release-canary/virtualservices/vertx-greet
+  uid: 2bbe6311-419e-4d30-bd44-d6f5c7b55111
+spec:
+  gateways:
+  - vertx-greet-gateway
+  hosts:
+  - '*'
+  http:
+  - route:
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v1
+      weight: 10
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v2
+      weight: 40
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v3
+      weight: 30
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v4
+      weight: 20

@@ -1,0 +1,325 @@
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ cp deployment-v3.yaml cp deployment-v4.yaml
+cp: target 'deployment-v4.yaml' is not a directory
+[student@workstation release-canary]$ cp deployment-v3.yaml  deployment-v4.yaml
+[student@workstation release-canary]$ ll
+total 44
+-rw-rw-r--. 1 student student  488 Jan 11  2023 deployment-v1.yaml
+-rw-rw-r--. 1 student student  582 Sep 23 18:05 deployment-v2.yaml
+-rw-rw-r--. 1 student student  657 Sep 23 18:18 deployment-v3.yaml
+-rw-rw-r--. 1 student student  657 Sep 23 18:48 deployment-v4.yaml
+-rw-rw-r--. 1 student student  215 Jan 11  2023 destination-rule.yaml
+-rw-rw-r--. 1 student student  247 Jan 11  2023 gateway.yaml
+-rw-rw-r--. 1 student student  148 Sep 23 18:46 README.md
+-rw-rw-r--. 1 student student  172 Jan 11  2023 service.yaml
+-rwxrwxr-x. 1 student student 2007 Jan 11  2023 test_canary.py
+-rw-rw-r--. 1 student student 1312 Sep 23 18:43 test_output.log
+-rw-rw-r--. 1 student student  251 Jan 11  2023 virtual-service.yaml
+[student@workstation release-canary]$ vi deployment-v4.yaml 
+[student@workstation release-canary]$ oc create -f deployment-v4.yaml 
+deployment.apps/vertx-greet-v4 created
+[student@workstation release-canary]$ oc get pod
+NAME                              READY   STATUS              RESTARTS   AGE
+vertx-greet-v1-646cbc8b7-t9rqj    2/2     Running             0          62m
+vertx-greet-v2-b45b5dc8f-7zghp    2/2     Running             0          44m
+vertx-greet-v3-675dc965dc-8fkl5   2/2     Running             0          15m
+vertx-greet-v4-5746cf9bc-2twsx    0/2     ContainerCreating   0          5s
+[student@workstation release-canary]$ oc get pod
+NAME                              READY   STATUS    RESTARTS   AGE
+vertx-greet-v1-646cbc8b7-t9rqj    2/2     Running   0          62m
+vertx-greet-v2-b45b5dc8f-7zghp    2/2     Running   0          44m
+vertx-greet-v3-675dc965dc-8fkl5   2/2     Running   0          16m
+vertx-greet-v4-5746cf9bc-2twsx    2/2     Running   0          14s
+[student@workstation release-canary]$ oc edit destinationrules.networking.istio.io de
+deployment-v1.yaml     deployment-v2.yaml     deployment-v3.yaml     deployment-v4.yaml     destination-rule.yaml  
+[student@workstation release-canary]$ oc edit destinationrules.networking.istio.io de
+deployment-v1.yaml     deployment-v2.yaml     deployment-v3.yaml     deployment-v4.yaml     destination-rule.yaml  
+[student@workstation release-canary]$ oc edit destinationrules.networking.istio.io destination-rule.yaml 
+deployment-v1.yaml     deployment-v3.yaml     destination-rule.yaml  .git/                  service.yaml           test_output.log        
+deployment-v2.yaml     deployment-v4.yaml     gateway.yaml           README.md              test_canary.py         virtual-service.yaml   
+[student@workstation release-canary]$ oc edit destinationrules.networking.istio.io destination-rule.yaml 
+deployment-v1.yaml     deployment-v3.yaml     destination-rule.yaml  .git/                  service.yaml           test_output.log        
+deployment-v2.yaml     deployment-v4.yaml     gateway.yaml           README.md              test_canary.py         virtual-service.yaml   
+[student@workstation release-canary]$ oc edit destinationrules vertx-greet 
+destinationrule.networking.istio.io/vertx-greet edited
+[student@workstation release-canary]$ oc get destinationrules vertx-greet 
+NAME          HOST          AGE
+vertx-greet   vertx-greet   45m
+[student@workstation release-canary]$ oc describe destinationrules vertx-greet 
+Name:         vertx-greet
+Namespace:    release-canary
+Labels:       <none>
+Annotations:  <none>
+API Version:  networking.istio.io/v1beta1
+Kind:         DestinationRule
+Metadata:
+  Creation Timestamp:  2023-09-23T22:06:08Z
+  Generation:          6
+  Managed Fields:
+    API Version:  networking.istio.io/v1beta1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:spec:
+        .:
+        f:host:
+    Manager:      kubectl-create
+    Operation:    Update
+    Time:         2023-09-23T22:06:08Z
+    API Version:  networking.istio.io/v1beta1
+    Fields Type:  FieldsV1
+    fieldsV1:
+      f:spec:
+        f:subsets:
+    Manager:         kubectl-edit
+    Operation:       Update
+    Time:            2023-09-23T22:51:44Z
+  Resource Version:  200632
+  Self Link:         /apis/networking.istio.io/v1beta1/namespaces/release-canary/destinationrules/vertx-greet
+  UID:               2559f886-914b-47d0-b91f-ad40e4f39051
+Spec:
+  Host:  vertx-greet
+  Subsets:
+    Labels:
+      Version:  v1
+    Name:       v1
+    Labels:
+      Version:  v2
+    Name:       v2
+    Labels:
+      Version:  v3
+    Name:       v3
+    Labels:
+      Version:  v4
+    Name:       v4
+Events:         <none>
+[student@workstation release-canary]$ oc get destinationrules vertx-greet > destinationruleforv4.yaml
+[student@workstation release-canary]$ cat de
+deployment-v1.yaml         deployment-v2.yaml         deployment-v3.yaml         deployment-v4.yaml         destinationruleforv4.yaml  destination-rule.yaml
+[student@workstation release-canary]$ cat de
+deployment-v1.yaml         deployment-v2.yaml         deployment-v3.yaml         deployment-v4.yaml         destinationruleforv4.yaml  destination-rule.yaml
+[student@workstation release-canary]$ cat destinationruleforv4.yaml 
+NAME          HOST          AGE
+vertx-greet   vertx-greet   46m
+[student@workstation release-canary]$ oc get destinationrules vertx-greet -o yaml > destinationruleforv4.yaml
+[student@workstation release-canary]$ cat destinationruleforv4.yaml 
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  creationTimestamp: "2023-09-23T22:06:08Z"
+  generation: 6
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:host: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2023-09-23T22:06:08Z"
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:subsets: {}
+    manager: kubectl-edit
+    operation: Update
+    time: "2023-09-23T22:51:44Z"
+  name: vertx-greet
+  namespace: release-canary
+  resourceVersion: "200632"
+  selfLink: /apis/networking.istio.io/v1beta1/namespaces/release-canary/destinationrules/vertx-greet
+  uid: 2559f886-914b-47d0-b91f-ad40e4f39051
+spec:
+  host: vertx-greet
+  subsets:
+  - labels:
+      version: v1
+    name: v1
+  - labels:
+      version: v2
+    name: v2
+  - labels:
+      version: v3
+    name: v3
+  - labels:
+      version: v4
+    name: v4
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ oc get virtualservices.networking.istio.io vertx-greet 
+deployment-v1.yaml         deployment-v4.yaml         gateway.yaml               service.yaml               virtual-service.yaml       
+deployment-v2.yaml         destinationruleforv4.yaml  .git/                      test_canary.py             
+deployment-v3.yaml         destination-rule.yaml      README.md                  test_output.log            
+[student@workstation release-canary]$ oc get virtualservices.networking.istio.io vertx-greet 
+deployment-v1.yaml         deployment-v4.yaml         gateway.yaml               service.yaml               virtual-service.yaml       
+deployment-v2.yaml         destinationruleforv4.yaml  .git/                      test_canary.py             
+deployment-v3.yaml         destination-rule.yaml      README.md                  test_output.log            
+[student@workstation release-canary]$ oc get virtualservices.networking.istio.io vertx-greet 
+deployment-v1.yaml         deployment-v4.yaml         gateway.yaml               service.yaml               virtual-service.yaml       
+deployment-v2.yaml         destinationruleforv4.yaml  .git/                      test_canary.py             
+deployment-v3.yaml         destination-rule.yaml      README.md                  test_output.log            
+[student@workstation release-canary]$ oc get virtualservices.networking.istio.io vertx-greet 
+
+NAME          GATEWAYS                  HOSTS   AGE
+vertx-greet   ["vertx-greet-gateway"]   ["*"]   66m
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ 
+[student@workstation release-canary]$ oc edit virtualservices.networking.istio.io vertx-greet 
+virtualservice.networking.istio.io/vertx-greet edited
+[student@workstation release-canary]$ oc get virtualservices.networking.istio.io vertx-greet -o yaml > virtualserviceupdateforv4.yaml
+[student@workstation release-canary]$ cat virtualserviceupdateforv4.yaml 
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  creationTimestamp: "2023-09-23T21:47:31Z"
+  generation: 7
+  managedFields:
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:gateways: {}
+        f:hosts: {}
+    manager: kubectl-create
+    operation: Update
+    time: "2023-09-23T21:47:31Z"
+  - apiVersion: networking.istio.io/v1beta1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        f:http: {}
+    manager: kubectl-edit
+    operation: Update
+    time: "2023-09-23T22:54:56Z"
+  name: vertx-greet
+  namespace: release-canary
+  resourceVersion: "201625"
+  selfLink: /apis/networking.istio.io/v1beta1/namespaces/release-canary/virtualservices/vertx-greet
+  uid: 2bbe6311-419e-4d30-bd44-d6f5c7b55111
+spec:
+  gateways:
+  - vertx-greet-gateway
+  hosts:
+  - '*'
+  http:
+  - route:
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v1
+      weight: 0
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v2
+      weight: 50
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v3
+      weight: 30
+    - destination:
+        host: vertx-greet
+        port:
+          number: 8080
+        subset: v4
+      weight: 20
+[student@workstation release-canary]$ ll
+total 52
+-rw-rw-r--. 1 student student  488 Jan 11  2023 deployment-v1.yaml
+-rw-rw-r--. 1 student student  582 Sep 23 18:05 deployment-v2.yaml
+-rw-rw-r--. 1 student student  657 Sep 23 18:18 deployment-v3.yaml
+-rw-rw-r--. 1 student student  667 Sep 23 18:49 deployment-v4.yaml
+-rw-rw-r--. 1 student student  992 Sep 23 18:53 destinationruleforv4.yaml
+-rw-rw-r--. 1 student student  215 Jan 11  2023 destination-rule.yaml
+-rw-rw-r--. 1 student student  247 Jan 11  2023 gateway.yaml
+-rw-rw-r--. 1 student student  148 Sep 23 18:46 README.md
+-rw-rw-r--. 1 student student  172 Jan 11  2023 service.yaml
+-rwxrwxr-x. 1 student student 2007 Jan 11  2023 test_canary.py
+-rw-rw-r--. 1 student student 1312 Sep 23 18:43 test_output.log
+-rw-rw-r--. 1 student student 1351 Sep 23 18:55 virtualserviceupdateforv4.yaml
+-rw-rw-r--. 1 student student  251 Jan 11  2023 virtual-service.yaml
+[student@workstation release-canary]$ ./test_canary.py 
+usage: test_canary.py [-h] [-r REQUESTS] [-s SLEEP] url
+test_canary.py: error: the following arguments are required: url
+[student@workstation release-canary]$ ./test_canary.py $G
+$GATEWAY_URL                         $GLUSTER_BARRIER_OPTIONS             $GLUSTER_PROFILE_OPTIONS             $GLUSTER_VOLUME_OPTIONS
+$GDK_BACKEND                         $GLUSTER_COMMAND_TREE                $GLUSTER_QUOTA_OPTIONS               $GNOME_DESKTOP_SESSION_ID
+$GDM_LANG                            $GLUSTER_FINAL_LIST                  $GLUSTER_TOP                         $GNOME_TERMINAL_SCREEN
+$GDMSESSION                          $GLUSTER_GEO_REPLICATION_OPTIONS     $GLUSTER_TOP_OPTIONS                 $GNOME_TERMINAL_SERVICE
+$GJS_DEBUG_OUTPUT                    $GLUSTER_GEO_REPLICATION_SUBOPTIONS  $GLUSTER_TOP_SUBOPTIONS1             $GROUPS
+$GJS_DEBUG_TOPICS                    $GLUSTER_LIST                        $GLUSTER_TOP_SUBOPTIONS2             
+[student@workstation release-canary]$ ./test_canary.py $G
+$GATEWAY_URL                         $GLUSTER_BARRIER_OPTIONS             $GLUSTER_PROFILE_OPTIONS             $GLUSTER_VOLUME_OPTIONS
+$GDK_BACKEND                         $GLUSTER_COMMAND_TREE                $GLUSTER_QUOTA_OPTIONS               $GNOME_DESKTOP_SESSION_ID
+$GDM_LANG                            $GLUSTER_FINAL_LIST                  $GLUSTER_TOP                         $GNOME_TERMINAL_SCREEN
+$GDMSESSION                          $GLUSTER_GEO_REPLICATION_OPTIONS     $GLUSTER_TOP_OPTIONS                 $GNOME_TERMINAL_SERVICE
+$GJS_DEBUG_OUTPUT                    $GLUSTER_GEO_REPLICATION_SUBOPTIONS  $GLUSTER_TOP_SUBOPTIONS1             $GROUPS
+$GJS_DEBUG_TOPICS                    $GLUSTER_LIST                        $GLUSTER_TOP_SUBOPTIONS2             
+[student@workstation release-canary]$ ./test_canary.py $GATEWAY_URL 
+Canary Release Test
+Sending 50 requests to istio-ingressgateway-istio-system.apps.ocp4.example.com ...
+
+
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT container Platform !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+!!! HELLO REDHAT OPENSHIFT container !!!
+
+
+#### Stats ####
+
+Total requests: 50
+* Errors: 50 (100.0%)
+
